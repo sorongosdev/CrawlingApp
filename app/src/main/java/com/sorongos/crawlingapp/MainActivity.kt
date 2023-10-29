@@ -19,14 +19,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val imageView = findViewById<ImageView>(R.id.imageView)
-        val url = "https://search.naver.com/search.naver?where=image&sm=tab_jum&query=%EC%95%88%EC%82%B0+%EB%82%A0%EC%94%A8"
+        val url =
+            "https://search.naver.com/search.naver?where=image&sm=tab_jum&query=%EC%95%88%EC%82%B0+%EB%82%A0%EC%94%A8"
 
         GlobalScope.launch(Dispatchers.IO) {
             val imageUrl = getImageUrl(url) // 대상 웹 페이지의 URL을 입력
-            Log.d("imgUrl","$imageUrl")
+            Log.d("imgUrl", "$imageUrl")
             imageUrl?.let {
                 launch(Dispatchers.Main) {
                     loadImageIntoImageView(it, imageView)
+
                 }
             }
         }
@@ -35,7 +37,8 @@ class MainActivity : AppCompatActivity() {
     private fun getImageUrl(url: String): String? {
         return try {
             val document: Document = Jsoup.connect(url).get()
-            val imgElements: Elements = document.select("img")
+            val imgElements: Elements = document.select("div .thumb img")
+
             if (imgElements.isNotEmpty()) {
                 val imageUrl = imgElements[0].absUrl("src")
                 if (imageUrl.isNotEmpty()) {
