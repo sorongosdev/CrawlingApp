@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
             Log.d("handleMessage","handleMessage")
             val bundle = msg.data    //new Thread에서 작업한 결과물 받기
             Log.d("bundle","${bundle.getString("temperature")}")
-//            RxEventBus.publish(RxEvents.EventSetRoom(true))
 
             binding.textView.text = bundle.getString("temperature")    //받아온 데이터 textView에 출력
         }
@@ -36,9 +35,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        RxEventBus.listen(RxEvents.EventSetRoom::class.java).subscribe {
-//            binding.textView.text = bundle.getString("temperature")
-//        }
         Thread {
             run {
                 try {
