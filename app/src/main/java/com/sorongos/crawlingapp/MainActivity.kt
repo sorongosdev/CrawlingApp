@@ -20,8 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val imageView = findViewById<ImageView>(R.id.imageView)
 
-//        val url =
-//            "https://www.pinterest.co.kr/search/pins/?q=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84&rs=typed"
+        //extended image
         val url =
             "https://www.pinterest.co.kr/pin/39406565482353666/"
 
@@ -43,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     private fun getImageUrl(url: String): String? {
         return try {
             val document: Document = Jsoup.connect(url).get()
+            Log.d("document", "$document")
             val imgElements: Elements = document.select("img")
             Log.d("image","$imgElements")
 
