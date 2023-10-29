@@ -19,8 +19,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val imageView = findViewById<ImageView>(R.id.imageView)
+
+//        val url =
+//            "https://www.pinterest.co.kr/search/pins/?q=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84&rs=typed"
         val url =
-            "https://search.naver.com/search.naver?where=image&sm=tab_jum&query=%EC%95%88%EC%82%B0+%EB%82%A0%EC%94%A8"
+            "https://www.pinterest.co.kr/pin/39406565482353666/"
+
+//        val url =
+//            "https://www.pinterest.co.kr/search/pins/?rs=ac&len=2&q=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84%20%ED%8F%AC%EC%A6%88&eq=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84&etslf=1286"
 
         GlobalScope.launch(Dispatchers.IO) {
             val imageUrl = getImageUrl(url) // 대상 웹 페이지의 URL을 입력
@@ -37,7 +43,8 @@ class MainActivity : AppCompatActivity() {
     private fun getImageUrl(url: String): String? {
         return try {
             val document: Document = Jsoup.connect(url).get()
-            val imgElements: Elements = document.select("div .thumb img")
+            val imgElements: Elements = document.select("img")
+            Log.d("image","$imgElements")
 
             if (imgElements.isNotEmpty()) {
                 val imageUrl = imgElements[0].absUrl("src")
