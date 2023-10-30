@@ -20,12 +20,18 @@ class MainActivity : AppCompatActivity() {
 
         val imageView = findViewById<ImageView>(R.id.imageView)
 
-        //extended image
-        val url =
-            "https://www.pinterest.co.kr/pin/39406565482353666/"
-
+        //pinterest extended image
 //        val url =
-//            "https://www.pinterest.co.kr/search/pins/?rs=ac&len=2&q=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84%20%ED%8F%AC%EC%A6%88&eq=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84&etslf=1286"
+//            "https://www.pinterest.co.kr/pin/39406565482353666/"
+//
+        //pinterest main
+        val url =
+      "https://www.pinterest.co.kr/search/pins/?rs=ac&len=2&q=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84%20%ED%8F%AC%EC%A6%88&eq=%EC%B9%9C%EA%B5%AC%20%EC%82%AC%EC%A7%84&etslf=1286"
+
+        //instagram image
+//        val url = "https://www.instagram.com/explore/tags/%ED%95%B4%EC%99%B8/"
+
+
 
         GlobalScope.launch(Dispatchers.IO) {
             val imageUrl = getImageUrl(url) // 대상 웹 페이지의 URL을 입력
@@ -43,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         return try {
             val document: Document = Jsoup.connect(url).get()
             Log.d("document", "$document")
-            val imgElements: Elements = document.select("img")
+            val imgElements: Elements = document.select("div[class='zI7 iyn Hsu'] > img")
             Log.d("image","$imgElements")
 
             if (imgElements.isNotEmpty()) {
